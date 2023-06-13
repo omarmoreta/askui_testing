@@ -22,11 +22,12 @@ describe('jest with askui', () => {
     await aui.expect().text().withText("Check for Offers").exists().exec()
   });
 
-  it('should click on the login button, type in username and password, and click login', async () => {
+  it('should click on the login button, type in username and password, click checkbox, and click login', async () => {
     await aui.click().text().withText("8 Log In").exec()  
     await aui.type("Username").exec()
     await aui.pressKey("tab").exec()
     await aui.type("Username").exec()
+    await aui.click().checkbox().leftOf().text().withText("Remember me").exec()
     await aui.click().button().withText("LOG IN").exec()
   });
 
@@ -34,3 +35,23 @@ describe('jest with askui', () => {
     await aui.expect().icon().withText("exclamation").exists().exec()
   });
 });
+
+// Retry the command 5 times with a wait time of 2 seconds between each try
+// async function waitUntil(askuiCommand: Promise<void>, maxTry = 5) {
+//   try {
+//       await askuiCommand;
+//   }
+//   catch (error) {
+//       if (maxTry == 0) {
+//           throw error;
+//       }
+//       console.log(`Retry predicting command, ${maxTry} tries left`);
+//       await aui.waitFor(2000).exec();
+//       await waitUntil(askuiCommand, maxTry - 1);
+//   }
+// }
+
+// // Wait for the text 'Github' to be displayed
+// await waitUntil(
+//   aui.expect().text().withText('Github').exists().exec();
+// )
